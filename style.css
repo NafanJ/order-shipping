@@ -1,34 +1,59 @@
 body {
-     background: #333;
-     color: lightgray;
-     font-family: Arial;
-     margin: 0;
-     padding: 0;
-}
-
-a {
-     color: inherit;
-     text-decoration: none;
-}
-a:hover {
-     text-decoration: underline;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #e0f2e9;
 }
 
 #mainTable {
-	width: 100%;
-	font-size: 18px;
+    font-family: "Arial", sans-serif;
+    border-collapse: collapse;
+    border-radius: 0.6;
+    width: 100%;
+    max-width: 1500px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #388e3c;
+    margin-bottom: 20px;
 }
 
 #mainTable th {
-    background-color: #202020;
-    color: #7DCEA0;
-    font-size: 20px;
-    padding: 10px;
-    text-align: center;
+    background-color: #388e3c;
+    color: #fff;
 }
 
-#mainTable tr:nth-child(even){background-color: #304030;}
+#mainTable th, #mainTable td {
+    font-family: "Arial", sans-serif;
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
 
-#mainTable tr:hover {background-color: #505050;}
+#mainTable tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
+#mainTable tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
 
+#mainTable a {
+    text-decoration: none;
+    color: #388e3c;
+}
+
+#mainTable a:hover {
+    text-decoration: underline;
+}
+
+#mainTable a[href^="?cancel"] {
+    color: #ff0000;
+}
