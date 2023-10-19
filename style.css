@@ -1,36 +1,46 @@
 body {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
     background-color: #e0f2e9;
 }
 
+#container {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    margin: 20px;
+    max-width: 1400px;
+}
+
 #mainTable {
     font-family: "Arial", sans-serif;
     border-collapse: collapse;
-    border-radius: 0.6;
     width: 100%;
     max-width: 1500px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 20px;
-    padding: 20px;
+    margin: 20px 0; 
+    padding: 20px;  
 }
 
 h1 {
     text-align: center;
-    color: #388e3c;
+    color: #007c5f;
     margin-bottom: 20px;
 }
 
 #mainTable th {
-    background-color: #388e3c;
+    background-color: #007c5f;
     color: #fff;
 }
 
-#mainTable th, #mainTable td {
+#mainTable th,
+#mainTable td {
     font-family: "Arial", sans-serif;
     border: 1px solid #ddd;
     text-align: left;
@@ -47,7 +57,7 @@ h1 {
 
 #mainTable a {
     text-decoration: none;
-    color: #388e3c;
+    color: #007c5f;
 }
 
 #mainTable a:hover {
