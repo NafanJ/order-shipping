@@ -21,7 +21,8 @@
 	// Main page
 	else
 	{
-		echo '<div id ="container"><h1>Customer Orders</h1>';
+		echo '<div id ="container">';
+		echo '<h1>Customer Orders</h1>';
 		echo '<table id="mainTable">';
 		echo '<thead>
 		<th>KML Ref</th>
@@ -32,10 +33,7 @@
 		<th>Address</th>
 		<th>Action</th>
 		</thead>';
-		echo '
-		<tbody 
-		id="sample_list">
-		</tbody>';
+		echo '<tbody id="sample_list"></tbody>';
 		echo '</table>';
 		echo '</div>';
 	}
