@@ -1,0 +1,34 @@
+body {
+     background: #333;
+     color: lightgray;
+     font-family: Arial;
+     margin: 0;
+     padding: 0;
+}
+
+a {
+     color: inherit;
+     text-decoration: none;
+}
+a:hover {
+     text-decoration: underline;
+}
+
+#mainTable {
+	width: 100%;
+	font-size: 18px;
+}
+
+#mainTable th {
+    background-color: #202020;
+    color: #7DCEA0;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+}
+
+#mainTable tr:nth-child(even){background-color: #304030;}
+
+#mainTable tr:hover {background-color: #505050;}
+
+
