@@ -1,69 +1,92 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*{
+    font-family: 'Roboto';
+}
+
+img{
+    width: 170px;
+    height: auto;
+    padding-bottom: 10px;
+}
+
+.header{
+    text-align: center;
+    color: #007c5f;
+}
+
+.hero-content{
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: #e0f2e9;
+    flex-direction: column;
+    color: #ffff;
+    background-color: #084c3c;
+    min-height: 200px;
+    padding-bottom: 20px;
 }
 
-#container {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    margin: 20px;
-    max-width: 1400px;
+h2{
+    padding-bottom: 12px;
+    border-bottom:2px solid black;
 }
 
-#mainTable {
-    font-family: "Arial", sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    max-width: 1500px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 20px 0; 
-    padding: 20px;  
+.order-cards{
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
 }
 
-h1 {
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    background-color: #ffff;
+    min-width: 600px;
+    min-height: auto;
+}
+
+.card:hover {
+    box-shadow: 0 8px 24px 0 rgba(0,0,0,0.6);
+  }
+
+.card-header{
     text-align: center;
-    color: #007c5f;
-    margin-bottom: 20px;
 }
 
-#mainTable th {
-    background-color: #007c5f;
-    color: #fff;
+.content{
+    display: flex;
+    justify-content:space-evenly;
 }
 
-#mainTable th,
-#mainTable td {
-    font-family: "Arial", sans-serif;
-    border: 1px solid #ddd;
-    text-align: left;
-    padding: 8px;
+.content-left{
+    display: flex;
+    flex-direction: column;
 }
 
-#mainTable tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
+.content-right{
+    display: flex;
+    flex-direction: column;
 }
 
-#mainTable tbody tr:nth-child(odd) {
-    background-color: #fff;
+h4{
+    max-height: 1px;
+    font-size: medium;
 }
 
-#mainTable a {
-    text-decoration: none;
-    color: #007c5f;
+p{
+    font-size: 14px;
 }
 
-#mainTable a:hover {
-    text-decoration: underline;
+p:empty{
+    display: none;
 }
 
-#mainTable a[href^="?cancel"] {
-    color: #ff0000;
+.button{
+    text-align: center;
+    padding-bottom: 8px;
 }
