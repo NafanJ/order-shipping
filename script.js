@@ -1,7 +1,8 @@
 const container = document.getElementById('order-cards-container');
+const tableContainer = document.getElementById('order-table-container');
 const button = document.getElementById('button');
 
-function getShippedData(){
+function getShippedData() {
     var request = new XMLHttpRequest();
     request.open("GET", "./shippedData.json", false);
     request.send(null)
@@ -21,7 +22,7 @@ function getOrders() {
 
 function returnCards(orders) {
     return "<div class='order-cards'>" + orders.map(orders =>
-    `<div class='card'>
+        `<div class='card'>
         <div class='card-header'>
             <h2>${orders.SORS}</h2>
         </div>
@@ -52,5 +53,26 @@ function returnCards(orders) {
     </div>`).join('') + "</div>";
 }
 
-container.innerHTML = returnCards(getOrders())
+function returnTable(orders) {
+    return "<div class='table-container'><table><tr><th>SORS Number</th><th>Item Number</th><th>Description</th><th>Colour</th><th>Quantity</th><th>Address</th><th>Action</th></tr>" + orders.map(orders =>
+        `<tr>
+            <td>${orders.SORS}</td>
+            <td>${orders.Item}</td>
+            <td>${orders.Description}</td>
+            <td>${orders.Colour}</td>
+            <td>${orders.Quantity}</td>
+            <td>
+                ${orders['Name']}
+                ${orders['Ship-to Address']}
+                ${orders['Ship-to Address 2']}
+                ${orders['Ship-to City']}
+                ${orders['Ship-to County']}
+                ${orders['Ship-to Post Code']}
+            </td>
+        </tr>
+        `).join('') + "</table></div>"
+}
+
+//container.innerHTML = returnCards(getOrders())
+tableContainer.innerHTML = returnTable(getOrders())
 getShippedData();
