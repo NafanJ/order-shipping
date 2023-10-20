@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KML Manager</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="./script.js" async></script>
 </head>
 
@@ -18,7 +19,12 @@
         <h1>AEL Management</h1>
         <p>Who lives in a pineapple under the sea?</p>
     </div>
-    
+
+    <div class="view-selector">
+        <button class='btn' onclick="displayTable()"><i class="fa fa-bars"></i></button>
+        <button class='btn' onclick="displayCards()"><i class="fa fa-folder"></i></button>
+    </div>
+
     <div id="order-cards-container"></div>
 
     <div id="order-table-container"></div>

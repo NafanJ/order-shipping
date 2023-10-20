@@ -69,10 +69,24 @@ function returnTable(orders) {
                 ${orders['Ship-to County']}
                 ${orders['Ship-to Post Code']}
             </td>
+            <td>
+                <button>Action</button>
+            </td>
         </tr>
         `).join('') + "</table></div>"
 }
 
-//container.innerHTML = returnCards(getOrders())
-tableContainer.innerHTML = returnTable(getOrders())
+
+function displayTable(){
+    container.style.display = 'none';
+    tableContainer.style.display = '';
+    tableContainer.innerHTML = returnTable(getOrders())
+}
+
+function displayCards(){
+    tableContainer.style.display = 'none';
+    container.style.display = '';
+    container.innerHTML = returnCards(getOrders())
+
+}
 getShippedData();
