@@ -90,3 +90,28 @@ p:empty{
     text-align: center;
     padding-bottom: 8px;
 }
+
+.table-container{
+    display: flex;
+    justify-content: center;
+}
+
+table{
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 1500px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
+    margin: 20px 0px;
+    padding: 20px;
+}
+
+th{
+    color: #ffff;
+    background-color: #084c3c;
+}
+
+tr:nth-child(even){
+    background-color: rgb(242, 242, 242);
+}
