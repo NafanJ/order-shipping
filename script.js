@@ -1,6 +1,6 @@
 const container = document.getElementById('order-cards-container');
 const tableContainer = document.getElementById('order-table-container');
-const button = document.getElementById('button');
+const toggleSwitch = document.getElementById("toggle");
 
 function getShippedData() {
     var request = new XMLHttpRequest();
@@ -89,4 +89,16 @@ function displayCards(){
     container.innerHTML = returnCards(getOrders())
 
 }
-getShippedData();
+
+toggleSwitch.addEventListener("change", function() {
+    if (this.checked) {
+        // Execute when the switch is turned on
+        displayTable();
+    } else {
+        // Execute when the switch is turned off
+        displayCards();
+    }
+});
+
+
+displayCards();

@@ -20,9 +20,13 @@
         <p>Who lives in a pineapple under the sea?</p>
     </div>
 
-    <div class="view-selector">
-        <button class='btn' onclick="displayTable()"><i class="fa fa-bars"></i></button>
-        <button class='btn' onclick="displayCards()"><i class="fa fa-folder"></i></button>
+    <div class="toggle-container">
+        <span class="label">Card View</span>
+        <div class="toggle-switch">
+            <input type="checkbox" id="toggle" class="toggle-input">
+            <label for="toggle" class="toggle-label"></label>
+        </div>
+        <span class="label">Table View</span>
     </div>
 
     <div id="order-cards-container"></div>

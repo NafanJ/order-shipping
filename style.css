@@ -157,3 +157,41 @@ table th, table td {
     border-image: initial;
     padding: 8px;
 }
+
+/* Toggle Styling*/
+.toggle-container{
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    padding-top: 8px;
+    gap: 8px;
+}
+
+.toggle-input {
+    display: none;
+}
+
+.toggle-label {
+    display: block;
+    width: 60px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 30px;
+    position: relative;
+    cursor: pointer;
+}
+
+.toggle-label:before {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+    left: 0;
+    transition: 0.4s;
+}
+
+.toggle-input:checked + .toggle-label:before {
+    transform: translateX(30px);
+}
