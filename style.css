@@ -105,18 +105,18 @@ h2{
 
 h4{
     max-height: 1px;
-    font-size: medium;
+    font-size: 10px;
 }
 
 p{
-    font-size: 14px;
+    font-size: 10px;
 }
 
 p:empty{
     display: none;
 }
 
-.button{
+.action-button{
     text-align: center;
     padding-bottom: 8px;
 }

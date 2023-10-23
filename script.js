@@ -18,77 +18,115 @@ function getOrders() {
     return orders
 }
 
-function returnCards(orders) {
-    return "<div class='order-cards'>" + orders.map(orders =>
-        `<div class='card'>
-        <div class='card-header'>
-            <h2>${orders.SORS}</h2>
-        </div>
-        <div class='content'>
-            <div class='content-left'>
-                <h4>Item No</h4>
-                <p>${orders.Item}</p>
-                <h4>Description</h4>
-                <p>${orders.Description}</p>
-                <h4>Colour</h4>
-                <p>${orders.Colour}</p>
-                <h4>Quantity</h4>
-                <p>${orders.Quantity}</p>
-            </div>
-            <div class='content-right'>
-                <h4>Address</h4>
-                <p>${orders['Name']}</p>
-                <p>${orders['Ship-to Address']}</p>
-                <p>${orders['Ship-to Address 2']}</p>
-                <p>${orders['Ship-to City']}</p>
-                <p>${orders['Ship-to County']}</p>
-                <p>${orders['Ship-to Post Code']}</p>
-            </div>
-        </div>
-        <div class='button'>
-        <button>Action</button>
-        </div>
-    </div>`).join('') + "</div>";
+function groupOrders() {
+    const orders = getOrders();
+    const groupedOrders = new Map();
+
+    for (const order of orders) {
+        const sors = order.SORS;
+
+        if (!groupedOrders.has(sors)) {
+            groupedOrders.set(sors, []);
+        }
+
+        groupedOrders.get(sors).push(order);
+    }
+
+    return groupedOrders;
 }
 
-function returnTable(orders) {
-    return "<div class='table-container'><table><tr><th>SORS Number</th><th>Item Number</th><th>Description</th><th>Colour</th><th>Quantity</th><th>Address</th><th>Action</th></tr>" + orders.map(orders =>
-        `<tr>
-            <td>${orders.SORS}</td>
-            <td>${orders.Item}</td>
-            <td>${orders.Description}</td>
-            <td>${orders.Colour}</td>
-            <td>${orders.Quantity}</td>
-            <td>
-                ${orders['Name']}
-                ${orders['Ship-to Address']}
-                ${orders['Ship-to Address 2']}
-                ${orders['Ship-to City']}
-                ${orders['Ship-to County']}
-                ${orders['Ship-to Post Code']}
-            </td>
-            <td>
-                <button>Action</button>
-            </td>
-        </tr>
-        `).join('') + "</table></div>"
+function returnCards() {
+    const orders = groupOrders(); // Assuming groupOrders() retrieves and groups your orders data
+    const cards = [];
+
+    for (const [sors, sorsOrders] of orders) {
+        const addressDetails = sorsOrders[0]; // Assuming address is the same for all orders with the same SORS
+        const cardContent = `
+            <div class='card'>
+                <div class='card-header'>
+                    <h2>${sors}</h2>
+                </div>
+                <div class='content'>
+                    ${sorsOrders.map(order =>
+                        `<div class='content-row'>
+                            <h4>Item No</h4>
+                            <p>${order.Item}</p>
+                            <h4>Description</h4>
+                            <p>${order.Description}</p>
+                            <h4>Colour</h4>
+                            <p>${order.Colour}</p>
+                            <h4>Quantity</h4>
+                            <p>${order.Quantity}</p>
+                        </div>`
+                    ).join('')}
+                    <div class='content-row'>
+                        <h4>Address</h4>
+                        <p>${addressDetails['Name']}</p>
+                        <p>${addressDetails['Ship-to Address']}</p>
+                        <p>${addressDetails['Ship-to Address 2']}</p>
+                        <p>${addressDetails['Ship-to City']}</p>
+                        <p>${addressDetails['Ship-to County']}</p>
+                        <p>${addressDetails['Ship-to Post Code']}</p>
+                    </div>
+                </div>
+                <div class='action-button'>
+                    <button>Action</button>
+                </div>
+            </div>`;
+
+        cards.push(cardContent);
+    }
+
+    return "<div class='order-cards'>" + cards.join('') + "</div>";
 }
 
+function returnTable() {
+    const orders = groupOrders(); // Assuming groupOrders() retrieves and groups your orders data
+    const tableRows = [];
 
-function displayTable(){
-    container.style.display = 'none';
-    tableContainer.style.display = '';
-    tableContainer.innerHTML = returnTable(getOrders())
+    for (const [sors, sorsOrders] of orders) {
+        const addressDetails = sorsOrders[0]; // Assuming address is the same for all orders with the same SORS
+        const rowContent = `
+            <tr>
+                <td>${sors}</td>
+                <td>${sorsOrders.map(order => order.Item).join('<br>')}</td>
+                <td>${sorsOrders.map(order => order.Description).join('<br>')}</td>
+                <td>${sorsOrders.map(order => order.Colour).join('<br>')}</td>
+                <td>${sorsOrders.map(order => order.Quantity).join('<br>')}</td>
+                <td>
+                    ${addressDetails['Name']}<br>
+                    ${addressDetails['Ship-to Address']}<br>
+                    ${addressDetails['Ship-to Address 2']}<br>
+                    ${addressDetails['Ship-to City']}<br>
+                    ${addressDetails['Ship-to County']}<br>
+                    ${addressDetails['Ship-to Post Code']}
+                </td>
+                <td>
+                    <button>Action</button>
+                </td>
+            </tr>
+        `;
+
+        tableRows.push(rowContent);
+    }
+
+    return "<div class='table-container'><table><tr><th>SORS Number</th><th>Item Number</th><th>Description</th><th>Colour</th><th>Quantity</th><th>Address</th><th>Action</th></tr>" + tableRows.join('') + "</table></div>";
 }
 
-function displayCards(){
+function displayCards() {
     tableContainer.style.display = 'none';
     container.style.display = '';
     container.innerHTML = returnCards(getOrders())
 
 }
 
-toggleSwitch.addEventListener("change", function() {
+function displayTable() {
+    container.style.display = 'none';
+    tableContainer.style.display = '';
+    tableContainer.innerHTML = returnTable(getOrders())
+}
+
+toggleSwitch.addEventListener("change", function () {
     if (this.checked) {
         // Execute when the switch is turned on
         displayTable();
@@ -97,6 +135,5 @@ toggleSwitch.addEventListener("change", function() {
         displayCards();
     }
 });
-
 
 displayCards();
