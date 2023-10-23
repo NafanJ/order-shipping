@@ -53,8 +53,7 @@ function returnCards() {
                             <p>${order.Item}</p>
                             <h4>Description</h4>
                             <p>${order.Description}</p>
-                            <h4>Colour</h4>
-                            <p>${order.Colour}</p>
+                            ${order.Colour ? `<h4>Colour</h4><p>${order.Colour}</p>` : ''}
                             <h4>Quantity</h4>
                             <p>${order.Quantity}</p>
                         </div>`
