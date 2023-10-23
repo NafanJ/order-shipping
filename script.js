@@ -7,7 +7,6 @@ function getShippedData() {
     request.open("GET", "./shippedData.json", false);
     request.send(null)
     var shippingData = JSON.parse(request.responseText);
-    console.log(shippingData);
     return shippingData;
 }
 
@@ -16,7 +15,6 @@ function getOrders() {
     request.open("GET", "./sampleData.json", false);
     request.send(null);
     var orders = JSON.parse(request.responseText);
-    console.log(orders);
     return orders
 }
 
