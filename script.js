@@ -1,6 +1,6 @@
 const container = document.getElementById('order-cards-container');
 const tableContainer = document.getElementById('order-table-container');
-const toggleSwitch = document.getElementById("toggle");
+const toggleSwitch = document.getElementById('toggle');
 
 function getShippedData() {
     var request = new XMLHttpRequest();
