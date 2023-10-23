@@ -36,11 +36,11 @@ function groupOrders() {
 }
 
 function returnCards() {
-    const orders = groupOrders(); // Assuming groupOrders() retrieves and groups your orders data
+    const orders = groupOrders(); 
     const cards = [];
 
     for (const [sors, sorsOrders] of orders) {
-        const addressDetails = sorsOrders[0]; // Assuming address is the same for all orders with the same SORS
+        const addressDetails = sorsOrders[0];
         const cardContent = `
             <div class='card'>
                 <div class='card-header'>
@@ -81,11 +81,11 @@ function returnCards() {
 }
 
 function returnTable() {
-    const orders = groupOrders(); // Assuming groupOrders() retrieves and groups your orders data
+    const orders = groupOrders();
     const tableRows = [];
 
     for (const [sors, sorsOrders] of orders) {
-        const addressDetails = sorsOrders[0]; // Assuming address is the same for all orders with the same SORS
+        const addressDetails = sorsOrders[0];
         const rowContent = `
             <tr>
                 <td>${sors}</td>
