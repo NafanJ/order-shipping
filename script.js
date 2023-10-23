@@ -96,7 +96,7 @@ function returnTable() {
                 <td>
                     ${addressDetails['Name']}<br>
                     ${addressDetails['Ship-to Address']}<br>
-                    ${addressDetails['Ship-to Address 2']}<br>
+                    ${addressDetails['Ship-to Address 2'] ? addressDetails['Ship-to Address 2'] + '<br>' : ''}
                     ${addressDetails['Ship-to City']}<br>
                     ${addressDetails['Ship-to County']}<br>
                     ${addressDetails['Ship-to Post Code']}
