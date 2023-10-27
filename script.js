@@ -36,7 +36,7 @@ function groupOrders() {
 }
 
 function returnCards() {
-    const orders = groupOrders(); 
+    const orders = groupOrders();
     const cards = [];
 
     for (const [sors, sorsOrders] of orders) {
@@ -46,19 +46,24 @@ function returnCards() {
                 <div class='card-header'>
                     <h2>${sors}</h2>
                 </div>
+                <div class='content-container'>
                 <div class='content'>
-                    ${sorsOrders.map(order =>
-                        `<div class='content-row'>
-                            <h4>Item No</h4>
-                            <p>${order.Item}</p>
-                            <h4>Description</h4>
-                            <p>${order.Description}</p>
-                            ${order.Colour ? `<h4>Colour</h4><p>${order.Colour}</p>` : ''}
-                            <h4>Quantity</h4>
-                            <p>${order.Quantity}</p>
-                        </div>`
-                    ).join('')}
-                    <div class='content-row'>
+                    <div class='content-headers'>
+                        <h4>Item No</h4>
+                        <h4>Description</h4>
+                        ${sorsOrders[0].Colour ? '<h4>Colour</h4>' : ''}
+                        <h4>Quantity</h4>
+                    </div>
+                        ${sorsOrders.map(order => `
+                            <div class='content-row'>
+                                <p>${order.Item}</p>
+                                <p>${order.Description}</p>
+                                ${order.Colour ? `<p>${order.Colour}</p>` : ''}
+                                <p>${order.Quantity}</p>
+                            </div>`
+                ).join('')}
+                </div>
+                    <div class='content-right'>
                         <h4>Address</h4>
                         <p>${addressDetails['Name']}</p>
                         <p>${addressDetails['Ship-to Address']}</p>
@@ -69,7 +74,7 @@ function returnCards() {
                     </div>
                 </div>
                 <div class='action-button'>
-                    <button>Action</button>
+                    <button onClick="buttonClick()">Action</button>
                 </div>
             </div>`;
 
@@ -101,7 +106,7 @@ function returnTable() {
                     ${addressDetails['Ship-to Post Code']}
                 </td>
                 <td>
-                    <button>Action</button>
+                    <button onclick="buttonClick()">Action</button>
                 </td>
             </tr>
         `;
@@ -110,6 +115,10 @@ function returnTable() {
     }
 
     return "<div class='table-container'><table><tr><th>SORS Number</th><th>Item Number</th><th>Description</th><th>Colour</th><th>Quantity</th><th>Address</th><th>Action</th></tr>" + tableRows.join('') + "</table></div>";
+}
+
+function buttonClick() {
+    console.log("CLICKED");
 }
 
 function displayCards() {
