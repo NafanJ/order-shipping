@@ -13,6 +13,7 @@ body {
 img {
     width: 170px;
     height: auto;
+    padding-top: 10px;
     padding-bottom: 10px;
 }
 
@@ -35,7 +36,6 @@ img {
 }
 
 h2 {
-    padding-bottom: 12px;
     border-bottom: 2px solid black;
 }
 
@@ -94,32 +94,14 @@ h2 {
     text-align: center;
 }
 
-.content-headers {
+.content-container{
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
+    padding: 10px;
 }
 
 .content {
     display: flex;
-    flex-direction: column;
-}
-
-.content-left {
-    align-items: center;
-}
-
-.content-container {
-    display: flex;
-    gap: 24px;
-}
-
-.content-right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Add other styling for the right content as needed */
+    gap: 48px;
 }
 
 .content-row {
@@ -128,6 +110,36 @@ h2 {
     font-size: 4px;
     gap: 48px;
 
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.descriptions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.colours {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quantities {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.address {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h4 {

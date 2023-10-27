@@ -47,23 +47,32 @@ function returnCards() {
                     <h2>${sors}</h2>
                 </div>
                 <div class='content-container'>
-                <div class='content'>
-                    <div class='content-headers'>
-                        <h4>Item No</h4>
-                        <h4>Description</h4>
-                        ${sorsOrders[0].Colour ? '<h4>Colour</h4>' : ''}
-                        <h4>Quantity</h4>
-                    </div>
-                        ${sorsOrders.map(order => `
-                            <div class='content-row'>
-                                <p>${order.Item}</p>
-                                <p>${order.Description}</p>
-                                ${order.Colour ? `<p>${order.Colour}</p>` : ''}
-                                <p>${order.Quantity}</p>
-                            </div>`
-                ).join('')}
-                </div>
-                    <div class='content-right'>
+                    <div class='content'>
+                        <div class='items'>
+                            <h4>Item No</h4>
+                            ${sorsOrders.map(order => `
+                                <p>${order.Item}</p>`
+                            ).join('')}
+                        </div>
+                        <div class='descriptions'>
+                            <h4>Description</h4>
+                            ${sorsOrders.map(order => `
+                                <p>${order.Description}</p>`
+                            ).join('')}
+                        </div>
+                        <div class='colours'>
+                            ${sorsOrders[0].Colour ? '<h4>Colour</h4>' : ''}
+                            ${sorsOrders.map(order => `
+                                <p>${order.Colour}</p>`
+                            ).join('')}
+                        </div>
+                        <div class='quantities'>
+                            <h4>Quantity</h4>
+                            ${sorsOrders.map(order => `
+                                <p>${order.Quantity}</p>`
+                            ).join('')}
+                        </div>
+                        <div class='address'>
                         <h4>Address</h4>
                         <p>${addressDetails['Name']}</p>
                         <p>${addressDetails['Ship-to Address']}</p>
@@ -71,6 +80,7 @@ function returnCards() {
                         <p>${addressDetails['Ship-to City']}</p>
                         <p>${addressDetails['Ship-to County']}</p>
                         <p>${addressDetails['Ship-to Post Code']}</p>
+                    </div>
                     </div>
                 </div>
                 <div class='action-button'>
