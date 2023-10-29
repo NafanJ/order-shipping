@@ -87,10 +87,8 @@ function returnCards() {
                     <button onClick="buttonClick()">Action</button>
                 </div>
             </div>`;
-
         cards.push(cardContent);
     }
-
     return "<div class='order-cards'>" + cards.join('') + "</div>";
 }
 
