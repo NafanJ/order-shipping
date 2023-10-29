@@ -35,7 +35,8 @@ function groupOrders() {
     return groupedOrders;
 }
 
-function returnCards() {
+function getCards() {
+    // Add a toggle here to check if pending or shipped
     const orders = groupOrders();
     const cards = [];
 
@@ -44,7 +45,7 @@ function returnCards() {
         const cardContent = `
             <div class='card'>
                 <div class='card-header'>
-                    <h2>${sors}</h2>
+                    <h2 id='sors-number'>${sors}</h2>
                 </div>
                 <div class='content-container'>
                     <div class='content'>
@@ -83,16 +84,13 @@ function returnCards() {
                     </div>
                     </div>
                 </div>
-                <div class='action-button'>
-                    <button onClick="buttonClick()">Action</button>
-                </div>
             </div>`;
         cards.push(cardContent);
     }
-    return "<div class='order-cards'>" + cards.join('') + "</div>";
+    return "<div class='order-cards'>" + cards.join('') + "</div>"
 }
 
-function returnTable() {
+function getTable() {
     const orders = groupOrders();
     const tableRows = [];
 
@@ -125,21 +123,57 @@ function returnTable() {
     return "<div class='table-container'><table><tr><th>SORS Number</th><th>Item Number</th><th>Description</th><th>Colour</th><th>Quantity</th><th>Address</th><th>Action</th></tr>" + tableRows.join('') + "</table></div>";
 }
 
-function buttonClick() {
-    console.log("CLICKED");
+function setButton(){
+    const bool = true // or False, do a get Shipped Data here
+
+    
+    const div =document.createElement('div');
+    div.className = 'action-button';
+    const button = document.createElement('button')
+    button.id = 'button'
+    button.className = 'buttonClass'
+    button.textContent = 'Action' // determine value
+    button.onclick = buttonClick(bool)
+    div.appendChild(button)
+
+
+    cardSelector = document.querySelectorAll('.content-container')
+    cardSelector.forEach(cardSelector => {
+        const newNode = div.cloneNode(true);
+        cardSelector.appendChild(newNode);
+    })
+    setButtonText()
+}
+
+function setButtonText(){
+    const sorsNumbers = document.querySelectorAll('#sors-number')
+    const buttons = document.querySelectorAll('#button')
+
+    shippedData = getShippedData()
+    
+    shippedData.forEach(shippedData =>{
+        for (let i= 0; i<sorsNumbers.length;i++){
+            const sorsNumber = sorsNumbers[i].innerText
+            if (shippedData['document_No'] == sorsNumber){
+                buttons[i].innerText = "Cancel"
+            } else {
+                buttons[i].innerText = "Ship"
+            }
+        }
+    })
 }
 
 function displayCards() {
     tableContainer.style.display = 'none';
     container.style.display = '';
-    container.innerHTML = returnCards(getOrders())
-
+    container.innerHTML = getCards(getOrders())
+    setButton();
 }
 
 function displayTable() {
     container.style.display = 'none';
     tableContainer.style.display = '';
-    tableContainer.innerHTML = returnTable(getOrders())
+    tableContainer.innerHTML = getTable(getOrders())
 }
 
 toggleSwitch.addEventListener("change", function () {
@@ -151,5 +185,14 @@ toggleSwitch.addEventListener("change", function () {
         displayCards();
     }
 });
+
+// DO WHAT YA WANT HERE
+function buttonClick(bool) {
+    if(bool){
+        //Shipped
+    } else {
+        //Cancel
+    }
+}
 
 displayCards();
