@@ -112,7 +112,7 @@ function getTable() {
                     ${addressDetails['Ship-to Post Code']}
                 </td>
                 <td>
-                    <button onclick="buttonClick()">Action</button>
+                    <button id='tableActionButton' onclick="buttonClick()">Action</button>
                 </td>
             </tr>
         `;
@@ -124,9 +124,9 @@ function getTable() {
 }
 
 function setButton(){
-    const bool = true // or False, do a get Shipped Data here
+    const bool = false // or False, do a get Shipped Data here
 
-    
+    if (bool == true){
     const div =document.createElement('div');
     div.className = 'action-button';
     const button = document.createElement('button')
@@ -143,6 +143,13 @@ function setButton(){
         cardSelector.appendChild(newNode);
     })
     setButtonText()
+    } else {
+        const tableActionButton = document.querySelectorAll("#tableActionButton")
+        tableActionButton.forEach(tableActionButton => {
+            tableActionButton.innerText = "Ship"
+        })
+        setButtonText(); // Adapt this for iterating through table
+    }
 }
 
 function setButtonText(){
@@ -174,6 +181,16 @@ function displayTable() {
     container.style.display = 'none';
     tableContainer.style.display = '';
     tableContainer.innerHTML = getTable(getOrders())
+    setButton();
+}
+
+// DO WHAT YA WANT HERE
+function buttonClick(bool) {
+    if(bool){
+        //Shipped
+    } else {
+        //Cancel
+    }
 }
 
 toggleSwitch.addEventListener("change", function () {
@@ -185,14 +202,5 @@ toggleSwitch.addEventListener("change", function () {
         displayCards();
     }
 });
-
-// DO WHAT YA WANT HERE
-function buttonClick(bool) {
-    if(bool){
-        //Shipped
-    } else {
-        //Cancel
-    }
-}
 
 displayCards();
