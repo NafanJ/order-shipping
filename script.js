@@ -174,6 +174,7 @@ function setTableButtonStyle() {
             const sorsNumbers = sorsNumbersTable[i].innerText
             if (shippedData['document_No'] == sorsNumbers) {
                 tableButtons[i].innerText = "Cancel"
+                tableButtons[i].parentElement.parentElement.style.backgroundColor = "rgba(8, 77, 61, .5)";
             } else {
                 tableButtons[i].innerText = "Ship"
             }
