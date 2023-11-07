@@ -114,7 +114,7 @@ function getTable() {
                     ${addressDetails['Ship-to Post Code']}
                 </td>
                 <td>
-                    <button id='tableActionButton' onclick="buttonClick(viewType)">Action</button>
+                    <button id='tableActionButton' onclick="buttonClick()">Action</button>
                 </td>
             </tr>
         `;
