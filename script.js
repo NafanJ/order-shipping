@@ -123,16 +123,16 @@ function getTable() {
     return "<div class='table-container'><table><tr><th>SORS Number</th><th>Item Number</th><th>Description</th><th>Colour</th><th>Quantity</th><th>Address</th><th>Action</th></tr>" + tableRows.join('') + "</table></div>";
 }
 
-function setButton(bool) {
-    if (bool) {
-        // Add to Card
+function setButton(viewType) {
+    if (viewType) {
+        // Add button to Card
         const div = document.createElement('div');
         div.className = 'action-button';
         const button = document.createElement('button')
         button.id = 'button'
         button.className = 'buttonClass'
         button.textContent = 'Action' // determine value
-        button.onclick = buttonClick(bool)
+        button.onclick = buttonClick(viewType)
         div.appendChild(button)
         cardSelector = document.querySelectorAll('.content-container')
         cardSelector.forEach(cardSelector => {
@@ -141,7 +141,7 @@ function setButton(bool) {
         })
         setCardButtonStyle()
     } else {
-        setTableButtonStyle(); // Adapt this for iterating through table
+        setTableButtonStyle();
     }
 }
 
@@ -150,13 +150,20 @@ function setCardButtonStyle() {
     const buttons = document.querySelectorAll('#button')
 
     shippedData = getShippedData()
-    // Set button text
     shippedData.forEach(shippedData => {
         for (let i = 0; i < sorsNumbers.length; i++) {
             const sorsNumber = sorsNumbers[i].innerText
-            if (shippedData['document_No'] == sorsNumber) {
-                buttons[i].innerText = "Cancel"
-                buttons[i].parentElement.parentElement.parentElement.style.backgroundColor = "rgba(8, 77, 61, .5)";
+            if (shippedData['processed'] == 1){
+                if (shippedData['document_No'] == sorsNumber) {
+                    buttons[i].innerText = "Cancel"
+                    currentCard = buttons[i].parentElement.parentElement.parentElement
+                    /* Remove card and move to end */
+                    currentCard.remove()
+                    cardList = document.querySelector(".order-cards")
+                    cardList.appendChild(currentCard)
+                    /* Dim Card */
+                    buttons[i].parentElement.parentElement.parentElement.style.backgroundColor = "rgba(8, 77, 61, .5)";
+                } 
             } else {
                 buttons[i].innerText = "Ship"
             }
@@ -173,9 +180,12 @@ function setTableButtonStyle() {
     shippedData.forEach(shippedData => {
         for (let i = 0; i < sorsNumbersTable.length; i++) {
             const sorsNumbers = sorsNumbersTable[i].innerText
-            if (shippedData['document_No'] == sorsNumbers) {
+            if (shippedData['processed'] == 1){
+                if (shippedData['document_No'] == sorsNumbers) {
                 tableButtons[i].innerText = "Cancel"
-                tableButtons[i].parentElement.parentElement.style.backgroundColor = "rgba(8, 77, 61, .5)";
+                tableRow = tableButtons[i].parentElement.parentElement
+                tableRow.style.backgroundColor = "rgba(8, 77, 61, .5)";
+                } 
             } else {
                 tableButtons[i].innerText = "Ship"
             }
