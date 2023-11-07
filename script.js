@@ -198,7 +198,7 @@ function displayCards() {
     tableContainer.style.display = 'none';
 
     cardsContainer.style.display = '';
-    cardsContainer.innerHTML = getCards(getOrders())
+    cardsContainer.innerHTML = getCards()
 
     // True for Card View
     setButton(true);
@@ -209,7 +209,7 @@ function displayTable() {
     cardsContainer.style.display = 'none';
 
     tableContainer.style.display = '';
-    tableContainer.innerHTML = getTable(getOrders())
+    tableContainer.innerHTML = getTable()
 
     // False for Table View
     setButton(false);
