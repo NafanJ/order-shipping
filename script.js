@@ -1,4 +1,4 @@
-const container = document.getElementById('order-cards-container');
+const cardsContainer = document.getElementById('order-cards-container');
 const tableContainer = document.getElementById('order-table-container');
 const toggleSwitch = document.getElementById('toggle');
 
@@ -18,6 +18,7 @@ function getOrders() {
     return orders
 }
 
+// Groups order by SORS number
 function groupOrders() {
     const orders = getOrders();
     const groupedOrders = new Map();
@@ -35,8 +36,8 @@ function groupOrders() {
     return groupedOrders;
 }
 
+// Iterate through orders and generate cards, inserts them into 'order-cards'
 function getCards() {
-    // Add a toggle here to check if pending or shipped
     const orders = groupOrders();
     const cards = [];
 
@@ -90,6 +91,7 @@ function getCards() {
     return "<div class='order-cards'>" + cards.join('') + "</div>"
 }
 
+// Iterate through orders and generate table, inserts them into 'table-container'
 function getTable() {
     const orders = groupOrders();
     const tableRows = [];
@@ -112,14 +114,12 @@ function getTable() {
                     ${addressDetails['Ship-to Post Code']}
                 </td>
                 <td>
-                    <button id='tableActionButton' onclick="buttonClick()">Action</button>
+                    <button id='tableActionButton' onclick="buttonClick(viewType)">Action</button>
                 </td>
             </tr>
         `;
-
         tableRows.push(rowContent);
     }
-
     return "<div class='table-container'><table><tr><th>SORS Number</th><th>Item Number</th><th>Description</th><th>Colour</th><th>Quantity</th><th>Address</th><th>Action</th></tr>" + tableRows.join('') + "</table></div>";
 }
 
@@ -172,7 +172,6 @@ function setCardButtonStyle() {
 }
 
 function setTableButtonStyle() {
-    // Add dimming here
     const sorsNumbersTable = document.querySelectorAll("#sorsNumber")
     const tableButtons = document.querySelectorAll("#tableActionButton")
 
@@ -193,19 +192,37 @@ function setTableButtonStyle() {
     })
 }
 
+// Adds to HTML container "order-cards-container"
 function displayCards() {
+    // Set table view styling to none
     tableContainer.style.display = 'none';
-    container.style.display = '';
-    container.innerHTML = getCards(getOrders())
+
+    cardsContainer.style.display = '';
+    cardsContainer.innerHTML = getCards(getOrders())
+
+    // True for Card View
     setButton(true);
 }
 
 function displayTable() {
-    container.style.display = 'none';
+    // Set card view styling to none
+    cardsContainer.style.display = 'none';
+
     tableContainer.style.display = '';
     tableContainer.innerHTML = getTable(getOrders())
+
+    // False for Table View
     setButton(false);
 }
+
+// Event listener for View Type Toggle
+toggleSwitch.addEventListener("change", function () {
+    if (this.checked) {
+        displayTable();
+    } else {
+        displayCards();
+    }
+});
 
 // DO WHAT YA WANT HERE
 function buttonClick(bool) {
@@ -215,15 +232,5 @@ function buttonClick(bool) {
         //Cancel
     }
 }
-
-toggleSwitch.addEventListener("change", function () {
-    if (this.checked) {
-        // Execute when the switch is turned on
-        displayTable();
-    } else {
-        // Execute when the switch is turned off
-        displayCards();
-    }
-});
 
 displayCards();
