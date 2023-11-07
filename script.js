@@ -156,6 +156,7 @@ function setCardButtonStyle() {
             const sorsNumber = sorsNumbers[i].innerText
             if (shippedData['document_No'] == sorsNumber) {
                 buttons[i].innerText = "Cancel"
+                buttons[i].parentElement.parentElement.parentElement.style.backgroundColor = "rgba(8, 77, 61, .5)";
             } else {
                 buttons[i].innerText = "Ship"
             }
