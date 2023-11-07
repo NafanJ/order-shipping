@@ -1,4 +1,4 @@
-const container = document.getElementById('order-cards-container');
+const cardsContainer = document.getElementById('order-cards-container');
 const tableContainer = document.getElementById('order-table-container');
 const toggleSwitch = document.getElementById('toggle');
 
@@ -18,6 +18,7 @@ function getOrders() {
     return orders
 }
 
+// Groups order by SORS number
 function groupOrders() {
     const orders = getOrders();
     const groupedOrders = new Map();
@@ -35,8 +36,8 @@ function groupOrders() {
     return groupedOrders;
 }
 
+// Iterate through orders and generate cards, inserts them into 'order-cards'
 function getCards() {
-    // Add a toggle here to check if pending or shipped
     const orders = groupOrders();
     const cards = [];
 
@@ -53,25 +54,25 @@ function getCards() {
                             <h4>Item No</h4>
                             ${sorsOrders.map(order => `
                                 <p>${order.Item}</p>`
-                            ).join('')}
+        ).join('')}
                         </div>
                         <div class='descriptions'>
                             <h4>Description</h4>
                             ${sorsOrders.map(order => `
                                 <p>${order.Description}</p>`
-                            ).join('')}
+        ).join('')}
                         </div>
                         <div class='colours'>
                             ${sorsOrders[0].Colour ? '<h4>Colour</h4>' : ''}
                             ${sorsOrders.map(order => `
                                 <p>${order.Colour}</p>`
-                            ).join('')}
+        ).join('')}
                         </div>
                         <div class='quantities'>
                             <h4>Quantity</h4>
                             ${sorsOrders.map(order => `
                                 <p>${order.Quantity}</p>`
-                            ).join('')}
+        ).join('')}
                         </div>
                         <div class='address'>
                         <h4>Address</h4>
@@ -90,6 +91,7 @@ function getCards() {
     return "<div class='order-cards'>" + cards.join('') + "</div>"
 }
 
+// Iterate through orders and generate table, inserts them into 'table-container'
 function getTable() {
     const orders = groupOrders();
     const tableRows = [];
@@ -98,7 +100,7 @@ function getTable() {
         const addressDetails = sorsOrders[0];
         const rowContent = `
             <tr>
-                <td>${sors}</td>
+                <td id='sorsNumber'>${sors}</td>
                 <td>${sorsOrders.map(order => order.Item).join('<br>')}</td>
                 <td>${sorsOrders.map(order => order.Description).join('<br>')}</td>
                 <td>${sorsOrders.map(order => order.Colour).join('<br>')}</td>
@@ -116,53 +118,52 @@ function getTable() {
                 </td>
             </tr>
         `;
-
         tableRows.push(rowContent);
     }
-
     return "<div class='table-container'><table><tr><th>SORS Number</th><th>Item Number</th><th>Description</th><th>Colour</th><th>Quantity</th><th>Address</th><th>Action</th></tr>" + tableRows.join('') + "</table></div>";
 }
 
-function setButton(){
-    const bool = false // or False, do a get Shipped Data here
-
-    if (bool == true){
-    const div =document.createElement('div');
-    div.className = 'action-button';
-    const button = document.createElement('button')
-    button.id = 'button'
-    button.className = 'buttonClass'
-    button.textContent = 'Action' // determine value
-    button.onclick = buttonClick(bool)
-    div.appendChild(button)
-
-
-    cardSelector = document.querySelectorAll('.content-container')
-    cardSelector.forEach(cardSelector => {
-        const newNode = div.cloneNode(true);
-        cardSelector.appendChild(newNode);
-    })
-    setButtonText()
-    } else {
-        const tableActionButton = document.querySelectorAll("#tableActionButton")
-        tableActionButton.forEach(tableActionButton => {
-            tableActionButton.innerText = "Ship"
+function setButton(viewType) {
+    if (viewType) {
+        // Add button to Card
+        const div = document.createElement('div');
+        div.className = 'action-button';
+        const button = document.createElement('button')
+        button.id = 'button'
+        button.className = 'buttonClass'
+        button.textContent = 'Action' // determine value
+        button.onclick = buttonClick(viewType)
+        div.appendChild(button)
+        cardSelector = document.querySelectorAll('.content-container')
+        cardSelector.forEach(cardSelector => {
+            const newNode = div.cloneNode(true);
+            cardSelector.appendChild(newNode);
         })
-        setButtonText(); // Adapt this for iterating through table
+        setCardButtonStyle()
+    } else {
+        setTableButtonStyle();
     }
 }
 
-function setButtonText(){
+function setCardButtonStyle() {
     const sorsNumbers = document.querySelectorAll('#sors-number')
     const buttons = document.querySelectorAll('#button')
 
     shippedData = getShippedData()
-    
-    shippedData.forEach(shippedData =>{
-        for (let i= 0; i<sorsNumbers.length;i++){
+    shippedData.forEach(shippedData => {
+        for (let i = 0; i < sorsNumbers.length; i++) {
             const sorsNumber = sorsNumbers[i].innerText
-            if (shippedData['document_No'] == sorsNumber){
-                buttons[i].innerText = "Cancel"
+            if (shippedData['processed'] == 1){
+                if (shippedData['document_No'] == sorsNumber) {
+                    buttons[i].innerText = "Cancel"
+                    currentCard = buttons[i].parentElement.parentElement.parentElement
+                    /* Remove card and move to end */
+                    currentCard.remove()
+                    cardList = document.querySelector(".order-cards")
+                    cardList.appendChild(currentCard)
+                    /* Dim Card */
+                    buttons[i].parentElement.parentElement.parentElement.style.backgroundColor = "rgba(8, 77, 61, .5)";
+                } 
             } else {
                 buttons[i].innerText = "Ship"
             }
@@ -170,37 +171,66 @@ function setButtonText(){
     })
 }
 
+function setTableButtonStyle() {
+    const sorsNumbersTable = document.querySelectorAll("#sorsNumber")
+    const tableButtons = document.querySelectorAll("#tableActionButton")
+
+    shippedData = getShippedData()
+    shippedData.forEach(shippedData => {
+        for (let i = 0; i < sorsNumbersTable.length; i++) {
+            const sorsNumbers = sorsNumbersTable[i].innerText
+            if (shippedData['processed'] == 1){
+                if (shippedData['document_No'] == sorsNumbers) {
+                tableButtons[i].innerText = "Cancel"
+                tableRow = tableButtons[i].parentElement.parentElement
+                tableRow.style.backgroundColor = "rgba(8, 77, 61, .5)";
+                } 
+            } else {
+                tableButtons[i].innerText = "Ship"
+            }
+        }
+    })
+}
+
+// Adds to HTML container "order-cards-container"
 function displayCards() {
+    // Set table view styling to none
     tableContainer.style.display = 'none';
-    container.style.display = '';
-    container.innerHTML = getCards(getOrders())
-    setButton();
+
+    cardsContainer.style.display = '';
+    cardsContainer.innerHTML = getCards(getOrders())
+
+    // True for Card View
+    setButton(true);
 }
 
 function displayTable() {
-    container.style.display = 'none';
+    // Set card view styling to none
+    cardsContainer.style.display = 'none';
+
     tableContainer.style.display = '';
     tableContainer.innerHTML = getTable(getOrders())
-    setButton();
+
+    // False for Table View
+    setButton(false);
 }
+
+// Event listener for View Type Toggle
+toggleSwitch.addEventListener("change", function () {
+    if (this.checked) {
+        displayTable();
+    } else {
+        displayCards();
+    }
+});
 
 // DO WHAT YA WANT HERE
 function buttonClick(bool) {
-    if(bool){
+    if (bool) {
         //Shipped
     } else {
         //Cancel
     }
 }
-
-toggleSwitch.addEventListener("change", function () {
-    if (this.checked) {
-        // Execute when the switch is turned on
-        displayTable();
-    } else {
-        // Execute when the switch is turned off
-        displayCards();
-    }
-});
 
 displayCards();
